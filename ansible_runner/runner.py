@@ -8,6 +8,7 @@ import signal
 import shutil
 import codecs
 import collections
+from collections import OrderedDict
 
 import six
 import pexpect
@@ -353,7 +354,8 @@ class Runner(object):
         fact_cache = os.path.join(self.config.fact_cache, host)
         if os.path.exists(fact_cache):
             with open(fact_cache) as f:
-                return json.loads(f.read())
+                # return json.loads(f.read())
+                return json.loads(f.read(), object_pairs_hook=collections.OrderedDict)                
         return {}
 
     def set_fact_cache(self, host, data):
